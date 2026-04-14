@@ -1,120 +1,195 @@
 import React, { useState } from 'react';
 
-const flashcards = [
+const timelineEvents = [
   {
-    icon: '🔴',
-    title: 'Tiền đề và Sự hình thành',
-    content: 'Bước ngoặt: Mác đã làm một việc kinh điển là "đặt Phép biện chứng của Hegel đứng trên hai chân của nó". Ông lấy bộ khung vận động của Hegel nhưng thay nội dung "Ý niệm" bằng "Vật chất".\n\nCộng sự vĩ đại: Friedrich Engels. Không chỉ hỗ trợ tài chính, Engels còn là người cùng Mác viết nên những tác phẩm bất hủ. Họ là biểu tượng của một tình bạn lý tưởng.\n\nĐối tượng hướng tới: Giai cấp vô sản (công nhân) - những người trực tiếp tạo ra của cải nhưng lại bị áp bức.',
-    gradient: 'from-red-600 to-red-800',
+    year: '1818',
+    icon: '👶',
+    title: 'Sự ra đời của một huyền thoại',
+    event: 'Sinh ngày 5 tháng 5 tại thành phố Trier, Vương quốc Phổ (Đức).',
+    details: 'Sinh ra trong một gia đình trung lưu có truyền thống trí thức. Ít ai ngờ rằng đứa trẻ này sau này sẽ là người "đòi lại công bằng" cho toàn bộ giai cấp lao động thế giới.',
+    color: 'from-red-600 to-red-800',
+    imagePath: '/images/marx-1818.jpg',
+
   },
   {
-    icon: '🧠',
-    title: 'Các Học thuyết Cốt lõi',
-    content: 'Chủ nghĩa Duy vật Lịch sử:\n\nCốt lõi: Tồn tại xã hội quyết định ý thức xã hội.\n\nCơ chế: Kinh tế (Lực lượng sản xuất) thay đổi sẽ kéo theo chính trị, pháp luật, tôn giáo (Kiến trúc thượng tầng) thay đổi theo.\n\nHọc thuyết Giá trị thặng dư:\n\nGiải mã: Nhà tư bản trả lương cho công nhân ít hơn giá trị thực tế họ làm ra. Phần chênh lệch đó chính là "Giá trị thặng dư" bị chiếm đoạt. Đây là chìa khóa để hiểu về sự giàu nghèo trong xã hội tư bản.',
-    gradient: 'from-yellow-600 to-yellow-800',
+    year: '1835-1841',
+    icon: '🎓',
+    title: 'Những năm tháng sinh viên "nổi loạn"',
+    event: 'Học luật và triết học tại Đại học Bonn và Berlin.',
+    details: 'Marx tham gia nhóm "Hegel trẻ", bắt đầu dùng triết học để phê phán tôn giáo và chính trị đương thời. Ông nhận bằng Tiến sĩ Triết học với một luận văn về triết học cổ đại.',
+    color: 'from-blue-600 to-blue-800',
+    imagePath: '/images/marx-1835.jpg',
+  
   },
   {
-    icon: '🌍',
-    title: 'Di sản và Tầm ảnh hưởng',
-    content: 'Tác phẩm "Tuyên ngôn của Đảng Cộng sản": Kết thúc bằng câu khẩu hiệu nổi tiếng: "Vô sản tất cả các nước, đoàn kết lại!".\n\nBộ "Tư bản": Một công trình khoa học đồ sộ mà Mác đã dành gần như cả đời để viết, phân tích sâu tận cùng các quy luật của nền kinh tế thế giới.\n\nTính thực tiễn: Triết học của Mác không phải để đọc cho vui, mà là để làm kim chỉ nam cho các cuộc cách mạng giải phóng dân tộc và con người trên toàn cầu.',
-    gradient: 'from-orange-600 to-orange-800',
+    year: '1843',
+    icon: '💕',
+    title: 'Bước ngoặt tình yêu và sự nghiệp',
+    event: 'Kết hôn với Jenny von Westphalen và chuyển sang Paris.',
+    details: 'Jenny là một tiểu thư quý tộc nhưng đã từ bỏ tất cả để đi theo Marx suốt cuộc đời lưu vong. Tại Paris, Marx gặp Friedrich Engels — bắt đầu một tình bạn vĩ đại nhất lịch sử nhân loại.',
+    color: 'from-pink-600 to-pink-800',
+    imagePath: '/images/marx-1843.jpg',
+    
   },
   {
-    icon: '🧥',
-    title: 'Con người đời thường',
-    content: 'Tính cách: Quyết đoán, sắc sảo và cực kỳ ham học. Ông có thể đọc được nhiều thứ tiếng và nghiên cứu toán học để giải trí.\n\nGia đình: Dù sống trong cảnh nghèo khó và lưu vong, ông có một tình yêu sâu sắc với người vợ Jenny và các con.\n\nSở thích: Thích tranh luận tại các câu lạc bộ công nhân và dành hàng giờ trong thư viện Bảo tàng Anh để nghiên cứu.',
-    gradient: 'from-purple-600 to-purple-800',
+    year: '1848',
+    icon: '',
+    title: 'Tuyên ngôn làm rung chuyển thế giới',
+    event: 'Xuất bản cuốn "Tuyên ngôn của Đảng Cộng sản".',
+    details: 'Giữa làn sóng cách mạng bùng nổ khắp châu Âu, Marx và Engels đã công bố văn kiện này, tuyên bố: "Lịch sử tất cả các xã hội tồn tại từ trước đến nay chỉ là lịch sử đấu tranh giai cấp".',
+    color: 'from-yellow-600 to-yellow-800',
+    imagePath: '../images/marx-1848.jpg',
+  
   },
+  {
+    year: '1849-1867',
+    icon: '📚',
+    title: 'Những ngày lưu vong và bộ "Tư bản"',
+    event: 'Định cư tại London và xuất bản tập I bộ "Tư bản" (1867).',
+    details: 'Đây là giai đoạn khó khăn nhất. Marx sống trong cảnh nghèo túng, thường xuyên phải vào tiệm cầm đồ, nhưng ông vẫn miệt mài ngồi trong thư viện Bảo tàng Anh mỗi ngày để nghiên cứu về kinh tế chính trị.',
+    color: 'from-green-600 to-green-800',
+    imagePath: '/images/marx-1849.jpg',
+   
+  },
+  {
+    year: '1883',
+    icon: '✨',
+    title: 'Di sản vĩnh cửu',
+    event: 'Qua đời ngày 14 tháng 3 tại London.',
+    details: 'Marx ra đi trên chiếc ghế bành tại bàn làm việc. Engels đã đọc điếu văn tại mộ ông: "Tên tuổi và sự nghiệp của ông sẽ còn sống mãi qua các thế kỷ".',
+    color: 'from-purple-600 to-purple-800',
+    imagePath: '/images/marx-1883.jpg',
+
+  }
 ];
 
 const MacLeninIntro: React.FC<{ onNext: () => void; onBack: () => void }> = ({ onNext, onBack }) => {
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const [currentEvent, setCurrentEvent] = useState(0);
 
-  const handleCardClick = (index: number) => {
-    setSelectedCard(index);
+  const handleNext = () => {
+    if (currentEvent < timelineEvents.length - 1) {
+      setCurrentEvent(currentEvent + 1);
+    }
   };
 
-  const handleCloseModal = () => {
-    setSelectedCard(null);
+  const handlePrev = () => {
+    if (currentEvent > 0) {
+      setCurrentEvent(currentEvent - 1);
+    }
   };
+
+  const event = timelineEvents[currentEvent];
+  const progressPercentage = ((currentEvent + 1) / timelineEvents.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col p-8 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col p-8">
       {/* Header */}
-      <div className="mb-12">
+      <div className="mb-8">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-          Giới thiệu về Marx-Leninism
+          Khái quát cuộc đời của Karl Marx
         </h1>
-        <p className="text-slate-400 text-lg">Khám phá bốn khía cạnh cốt lõi của tư tưởng</p>
+        <p className="text-slate-400 text-lg">The Revolutionary Timeline</p>
       </div>
 
-      {/* Flashcards Grid */}
-      <div className="flex-1 grid grid-cols-2 gap-6 mb-12">
-        {flashcards.map((card, index) => (
+      {/* Progress Bar */}
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-slate-300 font-semibold">Tiến trình: {currentEvent + 1} / {timelineEvents.length}</span>
+          <span className="text-red-400 font-bold text-xl">{event.year}</span>
+        </div>
+        <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
           <div
-            key={index}
-            onClick={() => handleCardClick(index)}
-            className={`bg-gradient-to-br ${card.gradient} rounded-2xl p-8 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg border border-white/10 group overflow-hidden relative`}
-          >
-            {/* Background decoration */}
-            <div className="absolute -right-10 -bottom-10 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">
-              {card.icon}
-            </div>
+            className="h-full bg-gradient-to-r from-red-500 to-red-700 transition-all duration-500 shadow-lg shadow-red-500/50"
+            style={{ width: `${progressPercentage}%` }}
+          ></div>
+        </div>
+      </div>
 
-            <div className="relative z-10">
-              <div className="text-6xl mb-4 transform group-hover:scale-110 transition-transform">
-                {card.icon}
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col mb-8">
+        <div className="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-10 border border-slate-600 shadow-2xl h-full flex flex-col">
+          {/* Timeline Event Header with Image or Emoji */}
+          <div className="flex items-start gap-6 mb-8 animate-fade-in">
+            <div className="flex-shrink-0 flex items-center justify-center">
+              {event.imagePath && (
+                <img
+                  src={event.imagePath}
+                  alt={event.title}
+                  className="w-32 h-40 object-cover rounded-lg border-2 border-white/20 shadow-lg"
+                  onError={(e) => {
+                    // Fallback to emoji if image doesn't exist
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              )}
+            </div>
+            <div className="flex-1">
+              <div className={`inline-block px-4 py-2 bg-gradient-to-r ${event.color} rounded-full mb-3`}>
+                <span className="text-white font-bold text-lg">{event.year}</span>
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-yellow-100 transition-colors">
-                {card.title}
-              </h2>
-              <p className="text-white/80 text-sm font-medium group-hover:text-white transition-colors">
-                Nhấn để xem chi tiết →
-              </p>
+              <h2 className="text-3xl font-bold text-white mb-3">{event.title}</h2>
+              <div className={`h-1 w-24 bg-gradient-to-r ${event.color} rounded`}></div>
+            </div>
+          </div>
+
+          {/* Event Content */}
+          <div className="flex-1 space-y-6">
+            <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-600/50">
+              <h3 className="text-red-400 font-semibold text-lg mb-2">Sự kiện</h3>
+              <p className="text-slate-200 text-lg">{event.event}</p>
             </div>
 
-            {/* Border animation */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-600/50">
+              <h3 className="text-red-400 font-semibold text-lg mb-2">Chi tiết</h3>
+              <p className="text-slate-300 text-base leading-relaxed">{event.details}</p>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Timeline Dots Navigation */}
+      <div className="flex justify-center gap-3 mb-8">
+        {timelineEvents.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentEvent(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index <= currentEvent
+                ? 'bg-red-500 shadow-lg shadow-red-500/50 scale-125'
+                : 'bg-slate-600 hover:bg-slate-500'
+            }`}
+          />
         ))}
       </div>
 
-      {/* Modal */}
-      {selectedCard !== null && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
-          <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-10 rounded-2xl max-w-2xl w-full border border-slate-600 shadow-2xl transform transition-all duration-300 scale-100">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="text-5xl">{flashcards[selectedCard].icon}</div>
-              <div>
-                <h2 className="text-3xl font-bold text-white">{flashcards[selectedCard].title}</h2>
-                <div className={`h-1 w-20 bg-gradient-to-r ${flashcards[selectedCard].gradient} mt-2 rounded`}></div>
-              </div>
-            </div>
-
-            <div className="bg-slate-700/50 p-6 rounded-lg mb-6 border border-slate-600/50">
-              <p className="text-slate-300 text-lg leading-relaxed whitespace-pre-line">
-                {flashcards[selectedCard].content}
-              </p>
-            </div>
-
-            <button
-              onClick={handleCloseModal}
-              className="w-full px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold rounded-lg transition-all duration-300 transform hover:shadow-lg hover:shadow-red-500/50 active:scale-95"
-            >
-              Đóng
-            </button>
-          </div>
+      {/* Navigation Buttons */}
+      <div className="flex justify-between items-center gap-4">
+        <div className="flex gap-4">
+          <button
+            onClick={handlePrev}
+            disabled={currentEvent === 0}
+            className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 ${
+              currentEvent === 0
+                ? 'bg-slate-600 text-slate-400 cursor-not-allowed opacity-50'
+                : 'bg-slate-600 hover:bg-slate-500 text-white hover:shadow-lg'
+            }`}
+          >
+            ← Quay lại
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentEvent === timelineEvents.length - 1}
+            className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 ${
+              currentEvent === timelineEvents.length - 1
+                ? 'bg-slate-600 text-slate-400 cursor-not-allowed opacity-50'
+                : 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white hover:shadow-lg hover:shadow-red-500/50'
+            }`}
+          >
+            Tiếp theo →
+          </button>
         </div>
-      )}
 
-      {/* Navigation Button */}
-      <div className="flex justify-between">
-        <button
-          onClick={onBack}
-          className="px-8 py-3 bg-slate-600 hover:bg-slate-500 text-white font-bold rounded-lg transition-all duration-300 transform hover:shadow-lg hover:-translate-y-1 active:scale-95"
-        >
-          ← Quay lại
-        </button>
         <button
           onClick={onNext}
           className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold rounded-lg transition-all duration-300 transform hover:shadow-lg hover:shadow-red-500/50 hover:-translate-y-1 active:scale-95"
@@ -123,19 +198,29 @@ const MacLeninIntro: React.FC<{ onNext: () => void; onBack: () => void }> = ({ o
         </button>
       </div>
 
+      {/* Back Button */}
+      <div className="mt-4 flex justify-start">
+        <button
+          onClick={onBack}
+          className="px-8 py-3 bg-slate-600 hover:bg-slate-500 text-white font-bold rounded-lg transition-all duration-300 transform hover:shadow-lg hover:-translate-y-1 active:scale-95"
+        >
+          ← Quay lại phần triết học
+        </button>
+      </div>
+
       <style>{`
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: scale(0.95);
+            transform: translateY(10px);
           }
           to {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
           }
         }
         .animate-fade-in {
-          animation: fadeIn 0.3s ease-out;
+          animation: fadeIn 0.5s ease-out;
         }
       `}</style>
     </div>
