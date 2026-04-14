@@ -127,6 +127,38 @@ const RAW_QUESTIONS: Question[] = [
     options: ["Khách quan, phổ biến, đa dạng", "Kỳ ảo, phép thuật, bí mật", "Tạm thời, giả dối, ngẫu nhiên", "Chỉ xuất hiện trên TV"],
     correctAnswer: 0,
     funFact: "Vạn vật đều có dây mơ rễ má với nhau, không gì có thể đứng tách rời hoàn toàn!"
+  },
+  {
+    id: 16,
+    doorName: "Lò Nướng Cộng Sản",
+    question: "Tư liệu sản xuất bao gồm những yếu tố nào?",
+    options: ["Chỉ công cụ", "Máy móc và nguyên liệu", "Tất cả phương tiện và điều kiện lao động", "Chỉ đất đai"],
+    correctAnswer: 2,
+    funFact: "Tư liệu sản xuất là mẹ của tất cả mọi thứ. Ai kiểm soát nó, người đó kiểm soát xã hội!"
+  },
+  {
+    id: 17,
+    doorName: "Vòng Xoátru Lịch Sử",
+    question: "Kiến trúc thượng tầng của xã hội bao gồm những yếu tố nào?",
+    options: ["Chỉ chính trị", "Chính trị, pháp luật, tôn giáo, tư tưởng", "Chỉ kinh tế", "Chỉ tôn giáo"],
+    correctAnswer: 1,
+    funFact: "Tất cả các thứ này đều phục vụ lợi ích của giai cấp thống trị. Chúng là công cụ áp bức!"
+  },
+  {
+    id: 18,
+    doorName: "Ngọn Lửa Cách Mạng",
+    question: "Cách mạng xã hội là quá trình chuyển đổi gì?",
+    options: ["Chỉ thay đổi chính trị", "Từ chế độ này sang chế độ khác", "Chỉ thay đổi con người", "Chỉ thay đổi tư duy"],
+    correctAnswer: 1,
+    funFact: "Cách mạng là uốn lượn từ từ rồi bộc phá mạnh mẽ. Nó là một quá trình đầy drama lịch sử!"
+  },
+  {
+    id: 19,
+    doorName: "Cửa Ánh Sáng Tương Lai",
+    question: "Triết học Marx có mục đích chính là gì?",
+    options: ["Chỉ để học vui", "Để giải thích thế giới", "Để thay đổi thế giới trên cơ sở khoa học", "Để viết sách bán chạy"],
+    correctAnswer: 2,
+    funFact: "Các triết gia chỉ giải thích thế giới theo những cách khác nhau; vấn đề là thay đổi nó!"
   }
 ];
 
