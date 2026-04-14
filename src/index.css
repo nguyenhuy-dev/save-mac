@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --color-primary: #3b82f6;
+  --color-secondary: #8b5cf6;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-900 text-slate-100 font-sans min-h-screen overflow-x-hidden;
+  }
+}
