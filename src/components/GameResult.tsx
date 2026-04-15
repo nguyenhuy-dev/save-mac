@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MarxProgress from './MarxProgress';
 
 interface GameResultProps {
@@ -11,6 +12,7 @@ interface GameResultProps {
 }
 
 const GameResult: React.FC<GameResultProps> = ({ timeLeft, wrongCount, totalLevels, formatTime, onRestart, isWin }) => {
+  const navigate = useNavigate();
 
   const resultMessage = useMemo(() => {
     if (!isWin) return "Bạn đã bị Chủ nghĩa Duy vật nuốt chửng.";
@@ -62,12 +64,21 @@ const GameResult: React.FC<GameResultProps> = ({ timeLeft, wrongCount, totalLeve
           </div>
       </div>
 
-      <button 
-        onClick={onRestart}
-        className="mt-10 px-12 py-5 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-slate-900 font-black text-2xl rounded-full shadow-[0_0_30px_rgba(234,179,8,0.4)] transform transition hover:-translate-y-1 active:scale-95 border-b-4 border-yellow-700 w-full md:w-auto"
-      >
-        {isWin ? 'Tái Thiết Trật Tự Mới' : 'Làm Lại Cách Mạng'}
-      </button>
+      <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full justify-center">
+        <button 
+          onClick={onRestart}
+          className="px-8 py-4 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-slate-900 font-black text-xl rounded-full shadow-[0_0_30px_rgba(234,179,8,0.4)] transform transition hover:-translate-y-1 active:scale-95 border-b-4 border-yellow-700 w-full sm:w-auto"
+        >
+          {isWin ? 'Tiếp Tục Cách Mạng' : 'Làm Lại Lịch Sử'}
+        </button>
+        
+        <button 
+          onClick={() => navigate('/')}
+          className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xl rounded-full shadow-lg transform transition hover:-translate-y-1 active:scale-95 border border-slate-600 w-full sm:w-auto"
+        >
+          Trở Về Trang Chủ
+        </button>
+      </div>
     </div>
   );
 };

@@ -4,19 +4,17 @@ import { useAudio } from '../hooks/useAudio';
 import GameIntro from '../components/GameIntro';
 import GamePlay from '../components/GamePlay';
 import GameResult from '../components/GameResult';
-import PhilosophyStages from '../components/PhilosophyStages';
-import MacLeninIntro from '../components/MacLeninIntro';
 
-type GameState = 'PHILOSOPHY_STAGES' | 'MAC_LENIN_INTRO' | 'START' | 'PLAYING' | 'RESULT';
+type GameState = 'START' | 'COUNTDOWN' | 'PLAYING' | 'RESULT';
 
-const TOTAL_LEVELS = 5;
+const TOTAL_LEVELS = 10;
 
 const Game = () => {
-  const [gameState, setGameState] = useState<GameState>('PHILOSOPHY_STAGES');
+  const [gameState, setGameState] = useState<GameState>('START');
   const [gameQuestions, setGameQuestions] = useState<Question[]>([]);
   const [currentLevel, setCurrentLevel] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
+  const [timeLeft, setTimeLeft] = useState(300);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<{ isCorrect: boolean; text: string } | null>(null);
 
@@ -24,10 +22,26 @@ const Game = () => {
 
   const currentQuestion = gameQuestions[currentLevel];
 
+  const [gameMode, setGameMode] = useState<'stage_1' | 'stage_2' | 'stage_3' | 'all'>('stage_1');
+  const [countdown, setCountdown] = useState<number | null>(null);
+
+  // Countdown logic
+  useEffect(() => {
+    if (gameState === 'COUNTDOWN' && countdown !== null) {
+      if (countdown > 0) {
+        const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+        return () => clearTimeout(timer);
+      } else {
+        setGameState('PLAYING');
+      }
+    }
+  }, [gameState, countdown]);
+
   // Timer logic
   useEffect(() => {
     let timer: number;
-    if (gameState === 'PLAYING' && timeLeft > 0) {
+    // Tạm dừng đếm ngược khi đang xem chú thích (selectedOption !== null)
+    if (gameState === 'PLAYING' && timeLeft > 0 && selectedOption === null) {
       timer = window.setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
@@ -41,25 +55,14 @@ const Game = () => {
 
   const [isWin, setIsWin] = useState(timeLeft > 0);
 
-  const handleNextFromPhilosophy = useCallback(() => {
-    setGameState('MAC_LENIN_INTRO');
-  }, []);
-
-  const handleNextFromMacLenin = useCallback(() => {
-    setGameState('START');
-  }, []);
-
-  const handleBackFromMacLenin = useCallback(() => {
-    setGameState('PHILOSOPHY_STAGES');
-  }, []);
-
-  const startGame = useCallback(() => {
-    // Lấy 5 câu hỏi ngẫu nhiên mới mỗi khi bắt đầu
-    setGameQuestions(getRandomQuestions(TOTAL_LEVELS));
-    setGameState('PLAYING');
+  const startGame = useCallback((mode: 'stage_1' | 'stage_2' | 'stage_3' | 'all') => {
+    setGameMode(mode);
+    setGameQuestions(getRandomQuestions(mode, TOTAL_LEVELS));
+    setGameState('COUNTDOWN');
+    setCountdown(3);
     setCurrentLevel(0);
     setWrongCount(0);
-    setTimeLeft(300);
+    setTimeLeft(mode === 'all' ? 420 : 360); // 10 câu hỏi, cho 6 phút các màn phụ, 7 phút nếu chơi Khảo Thí tổng hợp
     setFeedback(null);
     setSelectedOption(null);
     playBgm();
@@ -74,33 +77,42 @@ const Game = () => {
     if (isCorrect) {
       playSound('correct');
       setFeedback({ isCorrect: true, text: currentQuestion.funFact });
-      setTimeout(() => {
-        playSound('door'); 
-        if (currentLevel < TOTAL_LEVELS - 1) {
-          setCurrentLevel(prev => prev + 1);
-          setSelectedOption(null);
-          setFeedback(null);
-        } else {
-          setGameState('RESULT');
-          playSound('win');
-          stopBgm();
-        }
-      }, 5000);
     } else {
       playSound('wrong');
       setWrongCount(prev => prev + 1);
-      setFeedback({ isCorrect: false, text: "Sai lầm thảm hại! Quan điểm đó đã đi ngược lại với Mác." });
-      setTimeout(() => {
-        setSelectedOption(null);
-        setFeedback(null);
-      }, 5000);
+      
+      const isExtreme = gameMode === 'all';
+      if (isExtreme) setTimeLeft(prev => Math.max(0, prev - 15));
 
-      if (wrongCount === 4) {
-        setIsWin(false);
-        setGameState('RESULT');
-        playSound('wrong');
-        stopBgm();
-      }
+      setFeedback({ 
+        isCorrect: false, 
+        text: (isExtreme ? "Bị trừ 15s! " : "") + currentQuestion.funFact 
+      });
+    }
+  };
+
+  const handleNextLevel = () => {
+    const maxWrong = gameMode === 'all' ? 4 : 5;
+    // Kiểm tra xem có the game over vì bấm sai quá nhiều chưa
+    if (selectedOption !== currentQuestion?.correctAnswer && typeof selectedOption === 'number') {
+       if (wrongCount >= maxWrong) {
+         setIsWin(false);
+         setGameState('RESULT');
+         playSound('wrong');
+         stopBgm();
+         return;
+       }
+    }
+
+    playSound('door'); 
+    if (currentLevel < TOTAL_LEVELS - 1) {
+      setCurrentLevel(prev => prev + 1);
+      setSelectedOption(null);
+      setFeedback(null);
+    } else {
+      setGameState('RESULT');
+      playSound('win');
+      stopBgm();
     }
   };
 
@@ -112,14 +124,22 @@ const Game = () => {
 
   const renderContent = () => {
     switch (gameState) {
-      case 'PHILOSOPHY_STAGES':
-        return <PhilosophyStages onNext={handleNextFromPhilosophy} />;
-      case 'MAC_LENIN_INTRO':
-        return <MacLeninIntro onNext={handleNextFromMacLenin} onBack={handleBackFromMacLenin} />;
       case 'START':
         return <GameIntro onStart={startGame} />;
+      case 'COUNTDOWN':
+        return (
+          <div className="flex flex-col items-center justify-center min-h-[400px] animate-fade-in text-center">
+             <div className="text-[180px] font-black text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-yellow-600 drop-shadow-[0_0_40px_rgba(202,138,4,0.8)] animate-pulse">
+               {countdown}
+             </div>
+             <div className="text-3xl mt-2 text-slate-200 font-bold tracking-widest uppercase">
+               Chuẩn bị...
+             </div>
+          </div>
+        );
       case 'PLAYING':
         return <GamePlay 
+          key={`play-${currentLevel}`}
           currentQuestion={currentQuestion}
           currentLevel={currentLevel}
           totalLevels={TOTAL_LEVELS}
@@ -129,6 +149,7 @@ const Game = () => {
           feedback={feedback}
           onSelectOption={handleOptionSelect}
           formatTime={formatTime}
+          onNext={handleNextLevel}
         />;
       case 'RESULT':
         return <GameResult 
@@ -136,7 +157,7 @@ const Game = () => {
           wrongCount={wrongCount}
           totalLevels={TOTAL_LEVELS}
           formatTime={formatTime}
-          onRestart={startGame}
+          onRestart={() => setGameState('START')}
           isWin={isWin}
         />;
     }
