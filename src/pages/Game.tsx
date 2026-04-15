@@ -89,7 +89,7 @@ const Game = () => {
     } else {
       playSound('wrong');
       setWrongCount(prev => prev + 1);
-      setFeedback({ isCorrect: false, text: "Sai lầm thảm hại! Quan điểm đó đã đi ngược lại với Mác." });
+      setFeedback({ isCorrect: false, text: currentQuestion.explanationHint || "Sai lầm thảm hại! Quan điểm đó đã đi ngược lại với Mác." });
       setTimeout(() => {
         setSelectedOption(null);
         setFeedback(null);
