@@ -205,7 +205,7 @@ const TheoryDetail: React.FC = () => {
           </button>
 
           <div className="hidden md:flex gap-2">
-            {Object.keys(theoryData).map((key, i) => (
+            {Object.keys(theoryData).map((key) => (
               <div
                 key={key}
                 className={`h-2 rounded-full transition-all duration-500 shadow-xl border border-white/20 ${key === id ? `w-8 ${data.glowColor}` : 'w-3 bg-white/30 hover:bg-white/50 cursor-pointer'}`}
