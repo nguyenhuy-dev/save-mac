@@ -12,6 +12,7 @@ interface GamePlayProps {
   feedback: { isCorrect: boolean; text: string } | null;
   onSelectOption: (index: number) => void;
   formatTime: (seconds: number) => string;
+  onNext: () => void;
 }
 
 const GamePlay: React.FC<GamePlayProps> = ({
@@ -23,10 +24,11 @@ const GamePlay: React.FC<GamePlayProps> = ({
   selectedOption,
   feedback,
   onSelectOption,
-  formatTime
+  formatTime,
+  onNext
 }) => {
   return (
-    <div className="flex flex-col space-y-6 animate-fade-in w-full max-w-3xl mx-auto">
+    <div className="flex flex-col space-y-6 animate-scale-in w-full max-w-3xl mx-auto origin-center">
       
       {/* Marx Progress Bar */}
       <MarxProgress currentLevel={currentLevel} totalLevels={totalLevels} />
@@ -60,14 +62,24 @@ const GamePlay: React.FC<GamePlayProps> = ({
         "{currentQuestion.question}"
       </div>
 
-      {/* Feedback alert */}
+      {/* Feedback alert & Next Button */}
       {feedback && (
-        <div className={`p-4 rounded-xl text-center font-bold text-xl shadow-2xl transition-all ${
-          feedback.isCorrect 
-            ? 'bg-green-600/90 text-white border-2 border-green-400 animate-bounce' 
-            : 'bg-red-600/90 text-white border-2 border-red-400 animate-shake'
-        }`}>
-          {feedback.text}
+        <div className="flex flex-col items-center gap-5 mt-6 animate-expand-flash origin-top">
+          <div className={`p-6 rounded-2xl text-center font-bold text-lg shadow-2xl transition-all duration-500 w-full leading-relaxed ${
+            feedback.isCorrect 
+              ? 'bg-gradient-to-r from-green-700 to-green-600 text-white border-2 border-green-400 animate-fade-in-up' 
+              : 'bg-gradient-to-r from-red-800 to-red-600 text-white border-2 border-red-400 animate-fade-in-up'
+          }`}>
+            <span className="text-2xl block mb-2">{feedback.isCorrect ? '✅ Chính Xác!' : '❌ Sai Lệch!'}</span>
+            <span className="opacity-90 font-medium">{feedback.text}</span>
+          </div>
+          
+          <button 
+            onClick={onNext}
+            className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-full shadow-[0_0_20px_rgba(37,99,235,0.6)] transform hover:scale-105 transition-all animate-pulse drop-shadow-xl text-xl flex items-center gap-2"
+          >
+            TIẾP THEO <span className="text-2xl">➡</span>
+          </button>
         </div>
       )}
 
@@ -89,7 +101,8 @@ const GamePlay: React.FC<GamePlayProps> = ({
               key={index}
               disabled={selectedOption !== null}
               onClick={() => onSelectOption(index)}
-              className={`relative p-5 rounded-xl border-2 text-left font-bold text-lg transition-all ${btnClass} disabled:cursor-not-allowed group overflow-hidden`}
+              className={`relative p-5 rounded-xl border-2 text-left font-bold text-lg transition-all duration-300 ease-out transform hover:scale-[1.02] active:scale-[0.97] ${btnClass} disabled:cursor-not-allowed disabled:hover:scale-100 disabled:opacity-90 group overflow-hidden`}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Nền hover ảo */}
               <div className="absolute inset-0 bg-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
