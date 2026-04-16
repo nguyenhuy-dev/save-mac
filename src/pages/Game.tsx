@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { getRandomQuestions, type Question } from '../data/questions';
 import { useAudio } from '../hooks/useAudio';
 import GameIntro from '../components/GameIntro';
@@ -150,6 +151,19 @@ const Game = () => {
          <div className="absolute top-20 left-20 w-96 h-96 bg-red-700 rounded-full blur-[120px] mix-blend-screen"></div>
          <div className="absolute bottom-10 right-20 w-[500px] h-[500px] bg-yellow-600 rounded-full blur-[150px] mix-blend-screen"></div>
          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-900/40 via-slate-900 to-slate-900 max-w-7xl"></div>
+      </div>
+
+      {/* Floating Minigame Button */}
+      <div className="fixed top-6 right-6 z-50">
+        <Link 
+          to="/socio-model"
+          className="group flex items-center gap-2 px-5 py-3 bg-slate-800/80 backdrop-blur-md border border-yellow-500/50 hover:border-yellow-400 rounded-full shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all transform hover:-translate-y-1 active:scale-95"
+        >
+          <span className="text-xl animate-bounce">🧩</span>
+          <span className="font-bold text-yellow-500 tracking-wider hidden md:block group-hover:text-yellow-400">
+            Minigame Kinh Tế
+          </span>
+        </Link>
       </div>
 
       {/* Main Content Box */}
