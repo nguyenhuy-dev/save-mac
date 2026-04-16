@@ -5,6 +5,7 @@ export interface Question {
   options: string[];
   correctAnswer: number;
   funFact: string;
+  explanationHint?: string;
 }
 
 const RAW_QUESTIONS: Question[] = [
@@ -14,7 +15,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Theo Các Mác, động lực chủ yếu của sự phát triển xã hội có giai cấp là gì?",
     options: ["Tình yêu thương lan tỏa", "Sức mạnh siêu nhiên", "Đấu tranh giai cấp", "Sự tiến bộ của kỹ thuật AI"],
     correctAnswer: 2,
-    funFact: "Chính xác! Lịch sử tất cả các xã hội cho đến nay là lịch sử đấu tranh giai cấp."
+    funFact: "Chính xác! Lịch sử tất cả các xã hội cho đến nay là lịch sử đấu tranh giai cấp.",
+    explanationHint: "Gợi ý: Không phải mọi thứ đều màu hồng hay phụ thuộc vào trời đất, hãy nghĩ về sự xung đột lợi ích giữa các tầng lớp trong xã hội."
   },
   {
     id: 2,
@@ -22,7 +24,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Khái niệm nào sau đây quyết định ý thức theo chủ nghĩa duy vật biện chứng?",
     options: ["Vật chất", "Tinh thần", "Lực lượng vô hình", "Giấc mơ trưa"],
     correctAnswer: 0,
-    funFact: "Chuẩn! Vật chất có trước, ý thức có sau. Không có thực sao vực được đạo!"
+    funFact: "Chuẩn! Vật chất có trước, ý thức có sau. Không có thực sao vực được đạo!",
+    explanationHint: "Gợi ý: Theo duy vật biện chứng, cái tồn tại bên ngoài và độc lập với tư duy con người là cái có trước."
   },
   {
     id: 3,
@@ -30,7 +33,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Sự vật luôn luôn...?",
     options: ["Thích thì nằm yên", "Vận động và phát triển không ngừng", "Đi lùi về quá khứ", "Chỉ lặp lại y hệt nhau"],
     correctAnswer: 1,
-    funFact: "Không có gì là bất biến cả! Bạn đã nắm chắc nguyên lý này rồi."
+    funFact: "Không có gì là bất biến cả! Bạn đã nắm chắc nguyên lý này rồi.",
+    explanationHint: "Gợi ý: Mọi thứ trong vũ trụ đều không chịu đứng yên một chỗ đâu, kể cả khi bạn đang ngủ! Dòng sông không bao giờ chảy hai lần."
   },
   {
     id: 4,
@@ -38,7 +42,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Sự thay đổi về 'Lượng' đến một độ nhất định sẽ dẫn đến điều gì?",
     options: ["Sự bất ổn tâm lý", "Sự thay đổi về 'Chất'", "Mất trắng", "Bữa cơm thêm hạt gạo"],
     correctAnswer: 1,
-    funFact: "Tích tiểu thành đại. Lượng đủ thì chất sẽ nhảy vọt! Đừng vội nản."
+    funFact: "Tích tiểu thành đại. Lượng đủ thì chất sẽ nhảy vọt! Đừng vội nản.",
+    explanationHint: "Gợi ý: Khi tích lũy đủ số lượng (ví dụ đun nước lên 100 độ), trạng thái bản thể của nó sẽ biến đổi."
   },
   {
     id: 5,
@@ -46,7 +51,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Nguồn gốc và động lực của sự phát triển là gì?",
     options: ["Mâu thuẫn", "Ý muốn cá nhân", "Bản tính vũ trụ", "Số trời đã định"],
     correctAnswer: 0,
-    funFact: "Quá đỉnh! Mâu thuẫn chính là hạt nhân của phép biện chứng."
+    funFact: "Quá đỉnh! Mâu thuẫn chính là hạt nhân của phép biện chứng.",
+    explanationHint: "Gợi ý: Sự đấu tranh giữa các mặt đối lập bên trong chính sự vật mới làm nó tiến lên."
   },
   {
     id: 6,
@@ -54,7 +60,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Mác bảo: 'Thực tiễn là tiêu chuẩn của...' điều gì?",
     options: ["Công việc", "Chân lý", "Lương tháng", "Tình bạn"],
     correctAnswer: 1,
-    funFact: "Làm mà không có thực tiễn như nói mớ. Chỉ có thực tiễn mới kiểm chứng được!"
+    funFact: "Làm mà không có thực tiễn như nói mớ. Chỉ có thực tiễn mới kiểm chứng được!",
+    explanationHint: "Gợi ý: Mọi lý thuyết màu xám, chỉ có cây đời mãi mãi xanh tươi. Điều cần kiểm chứng ở đây là sự đúng đắn của tri thức."
   },
   {
     id: 7,
@@ -62,7 +69,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Tư tưởng triết học của Mác tập trung phê phán triết học của bộ đôi nào?",
     options: ["Socrates - Plato", "Hegel - Feuerbach", "Kant - Locke", "Phở - Bún bò"],
     correctAnswer: 1,
-    funFact: "Hegel lộn ngược, Feuerbach duy vật máy móc. Mác đến để ráp lại cho chuẩn!"
+    funFact: "Hegel lộn ngược, Feuerbach duy vật máy móc. Mác đến để ráp lại cho chuẩn!",
+    explanationHint: "Gợi ý: Bộ đôi triết gia Đức này, một người duy tâm khách quan, một người duy vật siêu hình, là tiền đề trực tiếp cho Mác."
   },
   {
     id: 8,
@@ -70,7 +78,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Phủ định của phủ định đại diện cho hình ảnh đường cong nào?",
     options: ["Đường thẳng tắp", "Vòng tròn lặp vô tận", "Đường xoáy ốc", "Biểu đồ sập hầm"],
     correctAnswer: 2,
-    funFact: "Vòng sau cao cấp hơn vòng trước. Không phải đi lùi, mà là sự trở lại ở mức độ cao hơn."
+    funFact: "Vòng sau cao cấp hơn vòng trước. Không phải đi lùi, mà là sự trở lại ở mức độ cao hơn.",
+    explanationHint: "Gợi ý: Phát triển không đi lùi cũng không thẳng tắp, mà lặp lại cái cũ ở một trình độ cao hơn, trông giống hình dạng của dải ngân hà."
   },
   {
     id: 9,
@@ -78,7 +87,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Theo Các Mác, giá trị thặng dư (m) sinh ra từ đâu?",
     options: ["Từ máy móc", "Từ tiền đẻ ra tiền", "Từ lưu thông hàng hóa", "Từ sức lao động bị bóc lột"],
     correctAnswer: 3,
-    funFact: "Bí mật vĩ đại nhất của sự giàu có trong tư bản chủ nghĩa chính là đây!"
+    funFact: "Bí mật vĩ đại nhất của sự giàu có trong tư bản chủ nghĩa chính là đây!",
+    explanationHint: "Gợi ý: Hãy nghĩ xem yếu tố duy nhất nào có thể tạo ra giá trị mới lớn hơn bản thân nó trong quá trình sản xuất."
   },
   {
     id: 10,
@@ -86,7 +96,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Tiền tệ có chức năng gì theo kinh tế chính trị?",
     options: ["Ăn được", "Là thước đo giá trị", "Để khoe của", "Chỉ là tờ giấy"],
     correctAnswer: 1,
-    funFact: "Tiền tệ là hàng hóa đặc biệt dùng làm vật ngang giá chung!"
+    funFact: "Tiền tệ là hàng hóa đặc biệt dùng làm vật ngang giá chung!",
+    explanationHint: "Gợi ý: Trong kinh tế chính trị, tiền không chỉ là giấy tờ mà đóng vai trò biểu hiện giá trị của những hàng hóa khác."
   },
   {
     id: 11,
@@ -94,7 +105,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Khái niệm nào chỉ toàn bộ hoạt động vật chất có mục đích của con người?",
     options: ["Lao động", "Giải trí", "Thực tiễn", "Ảo tưởng"],
     correctAnswer: 2,
-    funFact: "Thực tiễn bao gồm sản xuất vật chất, biến đổi chính trị xã hội và thực nghiệm khoa học."
+    funFact: "Thực tiễn bao gồm sản xuất vật chất, biến đổi chính trị xã hội và thực nghiệm khoa học.",
+    explanationHint: "Gợi ý: Khái niệm này rộng hơn lao động, bao gồm cả biến đổi xã hội và thực nghiệm khoa học."
   },
   {
     id: 12,
@@ -102,7 +114,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Chủ nghĩa duy vật biện chứng do ai sáng lập?",
     options: ["C. Mác và Ph. Ăng-ghen", "V.I. Lê-nin", "Feuerbach", "Cộng đồng mạng"],
     correctAnswer: 0,
-    funFact: "Đôi bạn thân vĩ đại đã làm nên cú lội ngược dòng trong lịch sử triết học!"
+    funFact: "Đôi bạn thân vĩ đại đã làm nên cú lội ngược dòng trong lịch sử triết học!",
+    explanationHint: "Gợi ý: Hãy nhớ đến 'đôi bạn thân vĩ đại' đã cùng nhau viết nên lịch sử triết học, không phải chỉ một người."
   },
   {
     id: 13,
@@ -110,7 +123,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Giai cấp là những tập đoàn người khác nhau về...?",
     options: ["Sở thích âm nhạc", "Địa vị trong hệ thống sản xuất", "Thói quen ăn uống", "Quốc tịch"],
     correctAnswer: 1,
-    funFact: "Túm lại là việc ai làm chủ tư liệu sản xuất và ai làm thuê!"
+    funFact: "Túm lại là việc ai làm chủ tư liệu sản xuất và ai làm thuê!",
+    explanationHint: "Gợi ý: Yếu tố quyết định sự khác biệt này liên quan trực tiếp đến việc ai sở hữu tư liệu sản xuất và ai phải đi làm thuê."
   },
   {
     id: 14,
@@ -118,7 +132,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Cái chung chỉ tồn tại bên trong...?",
     options: ["Không gian hẹp", "Tập hợp trống", "Cái riêng", "Bao bì đóng gói"],
     correctAnswer: 2,
-    funFact: "Không có cái chung lơ lửng, nó bắt buộc phải nằm trong những sự vật/hiện tượng cụ thể!"
+    funFact: "Không có cái chung lơ lửng, nó bắt buộc phải nằm trong những sự vật/hiện tượng cụ thể!",
+    explanationHint: "Gợi ý: Không có cái chung nào tồn tại lơ lửng bên ngoài, nó phải biểu hiện qua từng sự vật, hiện tượng cụ thể."
   },
   {
     id: 15,
@@ -126,7 +141,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Mối liên hệ phổ biến có tính chất gì?",
     options: ["Khách quan, phổ biến, đa dạng", "Kỳ ảo, phép thuật, bí mật", "Tạm thời, giả dối, ngẫu nhiên", "Chỉ xuất hiện trên TV"],
     correctAnswer: 0,
-    funFact: "Vạn vật đều có dây mơ rễ má với nhau, không gì có thể đứng tách rời hoàn toàn!"
+    funFact: "Vạn vật đều có dây mơ rễ má với nhau, không gì có thể đứng tách rời hoàn toàn!",
+    explanationHint: "Gợi ý: Mọi sự vật trên đời đều ít nhiều gắn kết với nhau một cách tự nhiên và muôn màu muôn vẻ, không do ai quyết định."
   },
   {
     id: 16,
@@ -134,7 +150,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Tư liệu sản xuất bao gồm những yếu tố nào?",
     options: ["Chỉ công cụ", "Máy móc và nguyên liệu", "Tất cả phương tiện và điều kiện lao động", "Chỉ đất đai"],
     correctAnswer: 2,
-    funFact: "Tư liệu sản xuất là mẹ của tất cả mọi thứ. Ai kiểm soát nó, người đó kiểm soát xã hội!"
+    funFact: "Tư liệu sản xuất là mẹ của tất cả mọi thứ. Ai kiểm soát nó, người đó kiểm soát xã hội!",
+    explanationHint: "Gợi ý: Hãy chọn phương án bao quát nhất về mọi thứ (từ công cụ, vật liệu đến hạ tầng) cần thiết để con người có thể lao động sản xuất."
   },
   {
     id: 17,
@@ -142,7 +159,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Kiến trúc thượng tầng của xã hội bao gồm những yếu tố nào?",
     options: ["Chỉ chính trị", "Chính trị, pháp luật, tôn giáo, tư tưởng", "Chỉ kinh tế", "Chỉ tôn giáo"],
     correctAnswer: 1,
-    funFact: "Tất cả các thứ này đều phục vụ lợi ích của giai cấp thống trị. Chúng là công cụ áp bức!"
+    funFact: "Tất cả các thứ này đều phục vụ lợi ích của giai cấp thống trị. Chúng là công cụ áp bức!",
+    explanationHint: "Gợi ý: Kiến trúc thượng tầng là các thiết chế xã hội được xây dựng trên nền tảng kinh tế. Nó không chỉ có một thứ."
   },
   {
     id: 18,
@@ -150,7 +168,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Cách mạng xã hội là quá trình chuyển đổi gì?",
     options: ["Chỉ thay đổi chính trị", "Từ chế độ này sang chế độ khác", "Chỉ thay đổi con người", "Chỉ thay đổi tư duy"],
     correctAnswer: 1,
-    funFact: "Cách mạng là uốn lượn từ từ rồi bộc phá mạnh mẽ. Nó là một quá trình đầy drama lịch sử!"
+    funFact: "Cách mạng là uốn lượn từ từ rồi bộc phá mạnh mẽ. Nó là một quá trình đầy drama lịch sử!",
+    explanationHint: "Gợi ý: Đây không phải là sự thay đổi nhỏ lẻ, mà là một bước ngoặt thay thế hoàn toàn một 'hình thái kinh tế - xã hội' đã lỗi thời."
   },
   {
     id: 19,
@@ -158,7 +177,8 @@ const RAW_QUESTIONS: Question[] = [
     question: "Triết học Marx có mục đích chính là gì?",
     options: ["Chỉ để học vui", "Để giải thích thế giới", "Để thay đổi thế giới trên cơ sở khoa học", "Để viết sách bán chạy"],
     correctAnswer: 2,
-    funFact: "Các triết gia chỉ giải thích thế giới theo những cách khác nhau; vấn đề là thay đổi nó!"
+    funFact: "Các triết gia chỉ giải thích thế giới theo những cách khác nhau; vấn đề là thay đổi nó!",
+    explanationHint: "Gợi ý: Mác từng nhấn mạnh: Các triết gia trước đây chỉ lo giải thích thế giới. Vấn đề quan trọng hơn là làm gì với nó."
   }
 ];
 
