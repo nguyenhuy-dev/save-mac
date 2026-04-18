@@ -29,7 +29,6 @@ export const DragBoard: React.FC<DragBoardProps> = ({ items, difficulty, onFinis
         ...prev,
         [active.id as string]: over.id as ZoneType,
       }));
-      playSound('door'); 
     } else {
       if (placed[active.id as string]) {
         setPlaced((prev) => {
@@ -37,7 +36,6 @@ export const DragBoard: React.FC<DragBoardProps> = ({ items, difficulty, onFinis
           delete newPlaced[active.id as string];
           return newPlaced;
         });
-        playSound('door');
       }
     }
   };
@@ -58,7 +56,7 @@ export const DragBoard: React.FC<DragBoardProps> = ({ items, difficulty, onFinis
     if (isWin) {
       playSound('win');
     } else {
-      playSound('wrong');
+      playSound('lose');
     }
 
     const elapsedMs = Date.now() - startTime;

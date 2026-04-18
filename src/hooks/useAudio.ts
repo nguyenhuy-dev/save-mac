@@ -1,29 +1,49 @@
 import { useCallback, useRef } from 'react';
 
+import win1 from "../assets/sounds/win.mp3";
+
+import lose1 from "../assets/sounds/lose.mp3";
+
+import correct1 from "../assets/sounds/correct1.mp3";
+import correct2 from "../assets/sounds/ting.mp3";
+
+import wrong1 from "../assets/sounds/shocked.mp3";
+import wrong2 from "../assets/sounds/huh.mp3";
+import wrong3 from "../assets/sounds/huh2.mp3";
+import wrong4 from "../assets/sounds/quack.mp3";
+
 const SOUNDS = {
-  correct: "https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg",
-  wrong: "https://actions.google.com/sounds/v1/cartoon/slip_and_fall.ogg",
-  win: "https://actions.google.com/sounds/v1/crowds/crowd_cheer.ogg",
-  door: "https://actions.google.com/sounds/v1/doors/wood_door_open_close.ogg",
-  bgm: "https://actions.google.com/sounds/v1/science_fiction/computer_beeps_and_whirs.ogg" // Light techy background
+  correct: [correct1, correct2],
+  wrong: [wrong1, wrong2, wrong3, wrong4],
+  win: [win1],
+  lose: [lose1],
 };
 
 export const useAudio = () => {
   const bgmRef = useRef<HTMLAudioElement | null>(null);
 
+  // 🎲 Lấy 1 sound ngẫu nhiên trong mảng
+  const getRandomSound = (list: string[]) => {
+    return list[Math.floor(Math.random() * list.length)];
+  };
+
+  // 🔊 Phát âm thanh hiệu ứng
   const playSound = useCallback((type: keyof typeof SOUNDS) => {
-    const audio = new Audio(SOUNDS[type]);
-    if (type !== 'bgm') {
-      audio.play().catch(() => {});
-    }
+    const list = SOUNDS[type];
+    if (!list || list.length === 0) return;
+
+    const sound = getRandomSound(list); // chọn random
+    const audio = new Audio(sound);
+    audio.currentTime = 0;
+
+    audio.play().catch(() => {});
   }, []);
 
+  // 🎵 Phát nhạc nền (nếu bạn có bgm)
   const playBgm = useCallback(() => {
-    if (!bgmRef.current) {
-      bgmRef.current = new Audio(SOUNDS.bgm);
-      bgmRef.current.loop = true;
-      bgmRef.current.volume = 0.3;
-    }
+    if (!bgmRef.current) return;
+    bgmRef.current.loop = true;
+    bgmRef.current.volume = 0.3;
     bgmRef.current.play().catch(() => {});
   }, []);
 
@@ -34,4 +54,4 @@ export const useAudio = () => {
   }, []);
 
   return { playSound, playBgm, stopBgm };
-}
+};
