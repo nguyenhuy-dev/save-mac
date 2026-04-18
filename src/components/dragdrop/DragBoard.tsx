@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { DndContext, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
 import type { ZoneType, DragItem, Difficulty } from '../../data/socioItems';
@@ -13,7 +13,7 @@ interface DragBoardProps {
   onBack: () => void;
 }
 
-export const DragBoard: React.FC<DragBoardProps> = ({ items, difficulty, onFinish, onBack }) => {
+export const DragBoard: React.FC<DragBoardProps> = ({ items, difficulty, onFinish }) => {
   const [placed, setPlaced] = useState<Record<string, ZoneType>>({});
   const [startTime] = useState<number>(Date.now());
   const { playSound } = useAudio();

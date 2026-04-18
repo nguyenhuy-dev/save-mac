@@ -7,6 +7,12 @@ interface GameIntroProps {
 }
 
 const introData: Record<string, { title: string, desc: string, icon: string, color: string }> = {
+  'on-tap': {
+    title: 'Tổng hợp kiến thức',
+    desc: 'Tổng hợp kiến thức về nguồn gốc lịch sử, các bộ phận cấu thành, và sức sống vĩ đại của triết học Mác - Lênin. Trắc nghiệm bao quát tất cả các phần.',
+    icon: '🚩',
+    color: 'from-red-900 to-red-700'
+  },
   'tong-quan': {
     title: 'Sơ lược Triết học Mác - Lênin',
     desc: 'Tìm hiểu về nguồn gốc lịch sử, các bộ phận cấu thành, và sức sống vĩ đại của triết học Mác - Lênin. Trắc nghiệm bao quát các tiền đề khoa học bảo vệ luận điểm duy vật.',
@@ -83,13 +89,23 @@ const GameIntro: React.FC<GameIntroProps> = ({ categoryId = 'tong-quan', onStart
           </span>
         </button>
 
-        <button 
-          onClick={() => navigate('/theory/' + categoryId)}
-          className="group flex items-center gap-2 text-stone-500 hover:text-red-900 transition-colors font-bold mt-6 border-b-2 border-stone-300 hover:border-red-900 pb-1"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">←</span>
+        {categoryId !== 'on-tap' ? (
+          <button 
+            onClick={() => navigate('/theory/' + categoryId)}
+            className="group flex items-center gap-2 text-stone-500 hover:text-red-900 transition-colors font-bold mt-6 border-b-2 border-stone-300 hover:border-red-900 pb-1"
+          >
+            <span className="group-hover:-translate-x-1 transition-transform">←</span>
           Học lại lý thuyết phần này
         </button>
+        ) : (
+          <button 
+            onClick={() => navigate('/')}
+            className="group flex items-center gap-2 text-stone-500 hover:text-red-900 transition-colors font-bold mt-6 border-b-2 border-stone-300 hover:border-red-900 pb-1"
+          >
+            <span className="group-hover:-translate-x-1 transition-transform">←</span>
+          Quay lại trang chủ
+        </button>
+        )}
       </div>
     </div>
   );

@@ -121,7 +121,7 @@ const Home: React.FC = () => {
                     </h3>
                  </div>
                  <ul className="flex flex-col gap-3 text-[13px] uppercase tracking-widest font-bold font-sans">
-                    <li onClick={() => navigate('/game/tong-quan')} className="hover:text-white hover:translate-x-1 cursor-pointer transition-all border-b border-[#F3E5AB]/10 pb-3 flex items-center gap-3">
+                    <li onClick={() => navigate('/game/on-tap')} className="hover:text-white hover:translate-x-1 cursor-pointer transition-all border-b border-[#F3E5AB]/10 pb-3 flex items-center gap-3">
                        <span className="text-[10px] text-[#D35400]">■</span> BÀI TẬP TRẮC NGHIỆM
                     </li>
                     <li onClick={() => navigate('/socio-model')} className="hover:text-white hover:translate-x-1 cursor-pointer transition-all border-b border-[#F3E5AB]/10 pb-3 flex items-center gap-3">
@@ -233,7 +233,7 @@ const Home: React.FC = () => {
 
                        <div className="flex flex-col md:flex-row gap-4 flex-wrap justify-center w-full max-w-4xl mx-auto">
                          <button
-                           onClick={() => navigate('/game/tong-quan')}
+                           onClick={() => navigate('/game/on-tap')}
                            className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-red-950 transition-all duration-300 bg-amber-400 rounded-sm hover:bg-amber-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.6)] hover:-translate-y-1 uppercase tracking-widest text-sm shadow-xl flex-1 max-w-[300px]"
                          >
                            <span className="relative flex items-center gap-3 text-center">

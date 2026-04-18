@@ -12,7 +12,6 @@ interface GamePlayProps {
   selectedOption: number | null;
   feedback: { isCorrect: boolean; text: string } | null;
   onSelectOption: (index: number) => void;
-  formatTime: (seconds: number) => string;
   onNext: () => void;
 }
 
@@ -26,14 +25,13 @@ const GamePlay: React.FC<GamePlayProps> = ({
   selectedOption,
   feedback,
   onSelectOption,
-  formatTime,
   onNext
 }) => {
   return (
     <div className="flex flex-col space-y-6 animate-scale-in w-full max-w-3xl mx-auto origin-center relative">
       
       {/* Cửa sổ bật lên Điểm Số (Score Box) */}
-      <div className="absolute -top-10 -right-4 md:-right-12 md:-top-16 transform rotate-6 z-20 animate-fade-in pointer-events-none">
+      <div className="absolute -top-10 -right-4 md:-right-20 md:-top-16 transform rotate-6 z-20 animate-fade-in pointer-events-none">
         <div className="bg-[#D35400] border-[6px] border-[#3E2723] rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center shadow-xl">
            <span className="text-[10px] md:text-sm font-black text-[#fdfaf5] uppercase tracking-widest mt-1">ĐIỂM SỐ</span>
            <span className="text-xl md:text-3xl font-black text-white leading-none drop-shadow-sm font-serif">{score}</span>
@@ -61,7 +59,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
         </div>
 
         <div className="text-lg font-bold text-amber-700 font-serif uppercase tracking-widest text-sm text-center border-l border-[#3E2723]/20 pl-4">
-          <div>Cảnháo</div>
+          <div>Cảnh báo</div>
           <div className="text-xl text-red-700">{wrongCount}</div>
         </div>
       </div>

@@ -6,12 +6,11 @@ interface GameResultProps {
   score: number;
   wrongCount: number;
   totalLevels: number;
-  formatTime: (seconds: number) => string;
   onRestart: () => void;
   isWin: boolean;
 }
 
-const GameResult: React.FC<GameResultProps> = ({ score, wrongCount, totalLevels, formatTime, onRestart, isWin }) => {
+const GameResult: React.FC<GameResultProps> = ({ score, wrongCount, totalLevels, onRestart, isWin }) => {
   const navigate = useNavigate();
 
   const resultMessage = useMemo(() => {
@@ -42,7 +41,7 @@ const GameResult: React.FC<GameResultProps> = ({ score, wrongCount, totalLevels,
         </div>
       </div>
 
-      <h2 className={`text-5xl font-black uppercase tracking-widest text-transparent bg-clip-text drop-shadow-sm ${isWin ? 'bg-gradient-to-r from-red-800 to-red-950' : 'bg-gradient-to-r from-stone-500 to-stone-800'}`}>
+      <h2 className={`text-5xl font-black uppercase leading-relaxed tracking-widest text-transparent bg-clip-text drop-shadow-sm ${isWin ? 'bg-gradient-to-r from-red-800 to-red-950' : 'bg-gradient-to-r from-stone-500 to-stone-800'}`}>
         {resultMessageLarge}
       </h2>
 
