@@ -14,14 +14,14 @@ const GameResult: React.FC<GameResultProps> = ({ score, wrongCount, totalLevels,
   const navigate = useNavigate();
 
   const resultMessage = useMemo(() => {
-    if (!isWin) return "Bạn đã bị Chủ nghĩa Duy vật nuốt chửng do chậm trễ hoặc sai quá nhiều.";
+    if (wrongCount >= 5) return "Bạn đã bị Chủ nghĩa Duy vật nuốt chửng do chậm trễ hoặc sai quá nhiều.";
     if (wrongCount === 0) return "TUYỆT ĐỈNH! Tốc độ như tư duy ánh sáng! Karl Marx đã được giải cứu thành công mỹ mãn!";
-    if (wrongCount <= 3) return `Bạn mắc sai lầm ${wrongCount} lần. Nhưng "Lượng đổi, Chất đổi", cuối cùng bạn vẫn cứu được Các Mác!`;
+    if (wrongCount <= 2) return `Bạn mắc sai lầm ${wrongCount} lần. Nhưng "Lượng đổi, Chất đổi", cuối cùng bạn vẫn cứu được Các Mác!`;
     return `Bạn sai ${wrongCount} lần! Rất may Quy luật Phủ định của Phủ định đã cứu vớt bạn. Các Mác đã thoát ra, nhưng hơi chóng mặt!`;
   }, [isWin, wrongCount]);
 
   const resultMessageLarge = useMemo(() => {
-    if (!isWin) return `THẤT BẠI CAY ĐẮNG`;
+    if (wrongCount >= 5) return `THẤT BẠI CAY ĐẮNG`;
     if (wrongCount <= 2) return "THẮNG LỢI VẺ VANG!";
     if (wrongCount === 0) return "THẮNG LỢI TUYỆT ĐỐI!";
     return "THẮNG LỢI VỪA VỪA!";

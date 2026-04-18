@@ -70,7 +70,11 @@ export const MatchingBoard: React.FC<MatchingBoardProps> = ({ pairs, difficulty,
   // Handle Win Logic
   useEffect(() => {
     if (matchedIds.length === pairs.length && pairs.length > 0) {
-      playSound('win');
+      if (wrongCount >= 5) {
+        playSound('lose');
+      } else {
+        playSound('win');
+      }
       setTimeout(() => {
         onFinish(Date.now() - startTime, wrongCount);
       }, 1000);

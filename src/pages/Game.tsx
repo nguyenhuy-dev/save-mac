@@ -114,7 +114,6 @@ const Game = () => {
   };
 
   const handleNextLevel = () => {
-    playSound('door');
     if (currentLevel < TOTAL_LEVELS - 1) {
       setCurrentLevel(prev => prev + 1);
       setSelectedOption(null);
@@ -123,7 +122,11 @@ const Game = () => {
     } else {
       setGameState('RESULT');
       setIsWin(true);
-      playSound('win');
+      if (wrongCount >= 5) {
+        playSound('lose');
+      } else {
+        playSound('win');
+      }
       stopBgm();
     }
   };
