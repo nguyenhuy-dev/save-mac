@@ -1,5 +1,6 @@
 import React from 'react';
-import { useDroppable } from '@dnd-kit/core';
+import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import type { ZoneType, DragItem } from '../../data/socioItems';
 
 interface DropZoneProps {
@@ -17,11 +18,11 @@ export const DropZone: React.FC<DropZoneProps> = ({ id, title, items, validation
   return (
     <div
       ref={setNodeRef}
-      className={`flex flex-col p-4 w-full min-h-[250px] bg-slate-900/80 rounded-2xl border-4 transition-colors duration-300 ${
-        isOver ? 'border-yellow-400 bg-slate-800 shadow-[0_0_25px_rgba(234,179,8,0.4)]' : 'border-red-900/50 shadow-[0_0_20px_rgba(220,38,38,0.3)]'
+      className={`flex flex-col p-4 w-full min-h-[250px] bg-stone-50 rounded-lg border-2 transition-colors duration-300 ${
+        isOver ? 'border-red-600 bg-white shadow-md' : 'border-stone-300 shadow-sm'
       }`}
     >
-      <h3 className="text-lg font-black text-yellow-500 text-center uppercase mb-4 tracking-widest border-b-2 border-red-900/50 pb-2">
+      <h3 className="text-lg font-black text-red-900 text-center uppercase mb-4 tracking-widest border-b-2 border-red-900/20 pb-2 font-serif">
         {title}
       </h3>
       <div className="flex-1 flex flex-col gap-3 justify-start items-center">
@@ -29,22 +30,45 @@ export const DropZone: React.FC<DropZoneProps> = ({ id, title, items, validation
           const isCorrect = validation[item.id];
           const hasBeenChecked = isCorrect !== undefined;
 
-          let itemClass = "bg-slate-800 border-2 border-slate-600 text-slate-200";
+          let itemClass = "bg-white border-2 border-stone-200 text-stone-800";
           if (hasBeenChecked) {
              if (isCorrect) {
-                itemClass = "bg-green-600 text-white border-2 border-green-400 shadow-[0_0_15px_rgba(34,197,94,0.5)]";
+                itemClass = "bg-green-50 text-green-900 border-2 border-green-500 shadow-sm";
              } else {
-                itemClass = "bg-red-600 text-white border-2 border-red-400 animate-shake";
+                itemClass = "bg-red-50 text-red-900 border-2 border-red-500 animate-shake";
              }
           }
 
           return (
-            <div key={item.id} className={`w-full p-3 text-center rounded-lg font-bold shadow-md cursor-default transition-all ${itemClass}`}>
-              {item.content}
-            </div>
+            <PlacedDraggableItem key={item.id} item={item} itemClass={itemClass} />
           );
         })}
       </div>
+    </div>
+  );
+};
+
+const PlacedDraggableItem: React.FC<{ item: DragItem; itemClass: string }> = ({ item, itemClass }) => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: item.id,
+    data: item,
+  });
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`w-full p-3 text-center rounded-sm font-bold shadow-sm cursor-grab active:cursor-grabbing transition-all font-serif uppercase tracking-wider text-sm hover:scale-[1.02] ${itemClass} ${
+        isDragging ? 'opacity-50 scale-105 z-50 relative' : 'opacity-100 relative z-10'
+      }`}
+    >
+      {item.content}
     </div>
   );
 };

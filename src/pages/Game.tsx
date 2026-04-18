@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { getRandomQuestions, type Question } from '../data/questions';
+import { Link, useParams } from 'react-router-dom';
+import { getQuestionsByCategory, type Question } from '../data/questions';
 import { useAudio } from '../hooks/useAudio';
 import GameIntro from '../components/GameIntro';
 import GamePlay from '../components/GamePlay';
@@ -11,11 +11,13 @@ type GameState = 'START' | 'COUNTDOWN' | 'PLAYING' | 'RESULT';
 const TOTAL_LEVELS = 10;
 
 const Game = () => {
+  const { categoryId } = useParams<{ categoryId: string }>();
   const [gameState, setGameState] = useState<GameState>('START');
   const [gameQuestions, setGameQuestions] = useState<Question[]>([]);
   const [currentLevel, setCurrentLevel] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [questionTimeLeft, setQuestionTimeLeft] = useState(15);
+  const [score, setScore] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<{ isCorrect: boolean; text: string } | null>(null);
 
@@ -23,7 +25,7 @@ const Game = () => {
 
   const currentQuestion = gameQuestions[currentLevel];
 
-  const [gameMode, setGameMode] = useState<'stage_1' | 'stage_2' | 'stage_3' | 'all'>('stage_1');
+  const [gameMode, setGameMode] = useState<string>('tong-quan');
   const [countdown, setCountdown] = useState<number | null>(null);
 
   // Countdown logic
@@ -38,34 +40,51 @@ const Game = () => {
     }
   }, [gameState, countdown]);
 
-  // Timer logic
+  // Per-Question Timer logic
   useEffect(() => {
     let timer: number;
-    // Tạm dừng đếm ngược khi đang xem chú thích (selectedOption !== null)
-    if (gameState === 'PLAYING' && timeLeft > 0 && selectedOption === null) {
+    if (gameState === 'PLAYING' && selectedOption === null) {
       timer = window.setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
+        setQuestionTimeLeft((prev) => {
+           if (prev <= 1) {
+              clearInterval(timer);
+              return 0;
+           }
+           return prev - 1;
+        });
       }, 1000);
-    } else if (timeLeft === 0 && gameState === 'PLAYING') {
-      setGameState('RESULT');
-      playSound('wrong');
-      stopBgm();
     }
     return () => clearInterval(timer);
-  }, [gameState, timeLeft, playSound, stopBgm]);
+  }, [gameState, selectedOption]);
 
-  const [isWin, setIsWin] = useState(timeLeft > 0);
+  // Handle Question Timeout
+  useEffect(() => {
+    if (questionTimeLeft === 0 && gameState === 'PLAYING' && selectedOption === null) {
+      playSound('wrong');
+      setWrongCount(prev => prev + 1);
+      
+      setFeedback({
+        isCorrect: false,
+        text: `⏰ Hết giờ! Chậm chạp làm mất đi cơ hội của Đảng. <br/><br/>` + (currentQuestion?.funFact || "")
+      });
+      setSelectedOption(-1);
+    }
+  }, [questionTimeLeft, gameState, selectedOption, playSound, currentQuestion]);
 
-  const startGame = useCallback((mode: 'stage_1' | 'stage_2' | 'stage_3' | 'all') => {
-    setGameMode(mode);
-    setGameQuestions(getRandomQuestions(mode, TOTAL_LEVELS));
+  const [isWin, setIsWin] = useState(true);
+
+  const startGame = useCallback((category: string) => {
+    setGameMode(category);
+    setGameQuestions(getQuestionsByCategory(category, TOTAL_LEVELS));
     setGameState('COUNTDOWN');
     setCountdown(3);
     setCurrentLevel(0);
     setWrongCount(0);
-    setTimeLeft(mode === 'all' ? 420 : 360); // 10 câu hỏi, cho 6 phút các màn phụ, 7 phút nếu chơi Khảo Thí tổng hợp
+    setScore(0);
+    setQuestionTimeLeft(15);
     setFeedback(null);
     setSelectedOption(null);
+    setIsWin(true);
     playBgm();
   }, [playBgm]);
 
@@ -77,41 +96,35 @@ const Game = () => {
 
     if (isCorrect) {
       playSound('correct');
-      setFeedback({ isCorrect: true, text: currentQuestion.funFact });
+      const timeBonus = questionTimeLeft * 20;
+      const pointsEarned = 100 + timeBonus;
+      setScore(prev => prev + pointsEarned);
+      
+      setFeedback({ 
+        isCorrect: true, 
+        text: `<div class="text-xl font-black uppercase font-sans mb-3 text-red-800 drop-shadow-sm border-b-2 border-red-200 pb-2">+${pointsEarned} ĐIỂM</div>` + currentQuestion.funFact 
+      });
     } else {
       playSound('wrong');
       setWrongCount(prev => prev + 1);
 
-      const isExtreme = gameMode === 'all';
-      if (isExtreme) setTimeLeft(prev => Math.max(0, prev - 15));
-
       setFeedback({
         isCorrect: false,
-        text: (isExtreme ? "Bị trừ 15s! " : "") + currentQuestion.funFact
+        text: currentQuestion.funFact
       });
     }
   };
 
   const handleNextLevel = () => {
-    const maxWrong = gameMode === 'all' ? 4 : 5;
-    // Kiểm tra xem có the game over vì bấm sai quá nhiều chưa
-    if (selectedOption !== currentQuestion?.correctAnswer && typeof selectedOption === 'number') {
-      if (wrongCount >= maxWrong) {
-        setIsWin(false);
-        setGameState('RESULT');
-        playSound('wrong');
-        stopBgm();
-        return;
-      }
-    }
-
     playSound('door');
     if (currentLevel < TOTAL_LEVELS - 1) {
       setCurrentLevel(prev => prev + 1);
       setSelectedOption(null);
       setFeedback(null);
+      setQuestionTimeLeft(15);
     } else {
       setGameState('RESULT');
+      setIsWin(true);
       playSound('win');
       stopBgm();
     }
@@ -126,7 +139,7 @@ const Game = () => {
   const renderContent = () => {
     switch (gameState) {
       case 'START':
-        return <GameIntro onStart={startGame} />;
+        return <GameIntro categoryId={categoryId} onStart={startGame} />;
       case 'COUNTDOWN':
         return (
           <div className="flex flex-col items-center justify-center min-h-[400px] animate-fade-in text-center">
@@ -144,7 +157,8 @@ const Game = () => {
           currentQuestion={currentQuestion}
           currentLevel={currentLevel}
           totalLevels={TOTAL_LEVELS}
-          timeLeft={timeLeft}
+          questionTimeLeft={questionTimeLeft}
+          score={score}
           wrongCount={wrongCount}
           selectedOption={selectedOption}
           feedback={feedback}
@@ -154,7 +168,7 @@ const Game = () => {
         />;
       case 'RESULT':
         return <GameResult
-          timeLeft={timeLeft}
+          score={score}
           wrongCount={wrongCount}
           totalLevels={TOTAL_LEVELS}
           formatTime={formatTime}
@@ -165,38 +179,25 @@ const Game = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col items-center justify-center p-4 font-sans relative overflow-x-hidden selection:bg-red-500 selection:text-white">
+    <div className="min-h-screen bg-[#fdfaf5] text-stone-800 flex flex-col items-center justify-center p-4 font-serif relative overflow-x-hidden selection:bg-red-800 selection:text-white">
 
-      {/* Background Decor */}
-      <div className="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none opacity-20">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-red-700 rounded-full blur-[120px] mix-blend-screen"></div>
-        <div className="absolute bottom-10 right-20 w-[500px] h-[500px] bg-yellow-600 rounded-full blur-[150px] mix-blend-screen"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-900/40 via-slate-900 to-slate-900 max-w-7xl"></div>
-      </div>
-
-      {/* Floating Minigame Button */}
-      <div className="fixed top-6 right-6 z-50">
-        <Link
-          to="/socio-model"
-          className="group flex items-center gap-2 px-5 py-3 bg-slate-800/80 backdrop-blur-md border border-yellow-500/50 hover:border-yellow-400 rounded-full shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all transform hover:-translate-y-1 active:scale-95"
-        >
-          <span className="text-xl animate-bounce">🧩</span>
-          <span className="font-bold text-yellow-500 tracking-wider hidden md:block group-hover:text-yellow-400">
-            Minigame Kinh Tế
-          </span>
-        </Link>
+      {/* Ambient Light Decor */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none opacity-60">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-red-100 rounded-full blur-[150px] mix-blend-multiply opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-amber-100 rounded-full blur-[150px] mix-blend-multiply opacity-50"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-stone-100/20 via-[#fdfaf5] to-[#fdfaf5]"></div>
       </div>
 
       {/* Main Content Box */}
-      <div className="z-10 w-full max-w-4xl bg-slate-800/90 backdrop-blur-xl p-8 rounded-[40px] shadow-[0_0_50px_rgba(220,38,38,0.3)] border-2 border-red-900/50">
+      <div className="z-10 w-full max-w-4xl bg-white p-4 md:p-12 rounded-xl shadow-[0_20px_60px_-15px_rgba(153,27,27,0.15)] border-2 border-stone-200">
 
         {renderContent()}
 
       </div>
 
       {/* Footer Meme */}
-      <div className="z-10 mt-8 text-center text-slate-500 text-sm italic font-medium opacity-50">
-        "Vô sản toàn thế giới, liên hiệp lại!"
+      <div className="z-10 mt-8 text-center text-red-900/60 font-serif italic text-sm font-bold tracking-widest uppercase flex items-center gap-3">
+        <span className="text-xl">☭</span> "Vô sản toàn thế giới, liên hiệp lại!" <span className="text-xl">☭</span>
       </div>
     </div>
   );
