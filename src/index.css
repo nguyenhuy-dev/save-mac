@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display', 'Lora', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --color-primary: #3b82f6;
   --color-secondary: #8b5cf6;
 }

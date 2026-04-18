@@ -2,91 +2,93 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface GameIntroProps {
-  onStart: (mode: 'stage_1' | 'stage_2' | 'stage_3' | 'all') => void;
+  categoryId?: string;
+  onStart: (categoryId: string) => void;
 }
 
-const GameIntro: React.FC<GameIntroProps> = ({ onStart }) => {
+const introData: Record<string, { title: string, desc: string, icon: string, color: string }> = {
+  'tong-quan': {
+    title: 'Sơ lược Triết học Mác - Lênin',
+    desc: 'Tìm hiểu về nguồn gốc lịch sử, các bộ phận cấu thành, và sức sống vĩ đại của triết học Mác - Lênin. Trắc nghiệm bao quát các tiền đề khoa học bảo vệ luận điểm duy vật.',
+    icon: '🚩',
+    color: 'from-red-900 to-red-700'
+  },
+  'vat-chat': {
+    title: 'Vật chất và Ý thức',
+    desc: 'Giải mã vấn đề cơ bản của triết học. Củng cố quan điểm duy vật: Vật chất có trước, ý thức có sau. Khám phá mối quan hệ biện chứng giữa vật chất và không thời gian.',
+    icon: '🔮',
+    color: 'from-blue-900 to-blue-700'
+  },
+  'nguyen-ly': {
+    title: 'Hai Nguyên Lý Cơ Bản',
+    desc: 'Mọi thứ luôn liên kết và không ngừng phát triển. Vận dụng quan điểm toàn diện và quan điểm lịch sử - cụ thể để trả lời hóc búa về hai nguyên lý biện chứng.',
+    icon: '⚖️',
+    color: 'from-emerald-900 to-emerald-700'
+  },
+  'quy-luat': {
+    title: 'Ba Quy Luật Cơ Bản',
+    desc: 'Lượng đổi chất đổi, mâu thuẫn đấu tranh, và phủ định của phủ định... Bạn sẽ phải vận dụng não bộ để qua ải các quy luật vận động khắc nghiệt nhất của thực tại.',
+    icon: '⚙️',
+    color: 'from-amber-900 to-amber-700'
+  },
+  'pham-tru': {
+    title: 'Sáu Cặp Phạm Trù & Nhận Thức',
+    desc: 'Hành trình cuối cùng: Cái chung và cái riêng, tất nhiên và ngẫu nhiên... Áp dụng vào thực tiễn để kiểm nghiệm chân lý cuối cùng.',
+    icon: '🧠',
+    color: 'from-purple-900 to-purple-700'
+  }
+};
+
+const GameIntro: React.FC<GameIntroProps> = ({ categoryId = 'tong-quan', onStart }) => {
   const navigate = useNavigate();
+  const data = introData[categoryId] || introData['tong-quan'];
 
   return (
     <div className="flex flex-col items-center animate-fade-in text-center space-y-8 w-full pb-8">
       <div className="relative">
-        <div className="w-40 h-40 md:w-56 md:h-56 bg-slate-800 rounded-full overflow-hidden border-4 border-yellow-500 shadow-[0_0_30px_rgba(234,179,8,0.6)] transition-transform hover:scale-105 hover:rotate-3 z-10 relative flex items-center justify-center">
-           <img src="/karl_marx.png" alt="Karl Marx" className="w-full h-full object-cover" onError={(e) => e.currentTarget.style.display = 'none'} />
-           <span className="text-6xl absolute z-[-1]">🧠</span>
+        <div className="w-40 h-40 md:w-56 md:h-56 bg-white rounded-full overflow-hidden border-8 border-stone-200 shadow-xl transition-transform hover:scale-105 hover:rotate-3 z-10 relative flex items-center justify-center">
+           <img src="/karl_marx.png" alt="Karl Marx" className="w-full h-full object-cover mix-blend-multiply opacity-80 sepia-[.3]" onError={(e) => e.currentTarget.style.display = 'none'} />
+           <span className="text-6xl absolute z-[-1] filter drop-shadow-sm">{data.icon}</span>
         </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[150px] text-red-600/20 z-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[150px] text-red-900/5 z-0 pointer-events-none font-serif">
            ☭
         </div>
       </div>
 
-      <div className="bg-slate-900/80 p-6 rounded-2xl border border-red-500/30 w-full max-w-2xl shadow-xl relative mt-4">
-        <div className="absolute -top-4 -left-4 text-4xl">💭</div>
-        <p className="text-xl md:text-2xl text-slate-300 font-medium italic">
+      <div className="bg-stone-50 p-8 rounded-lg border-2 border-stone-200 w-full max-w-2xl shadow-lg relative mt-4">
+        <div className="absolute -top-4 -left-4 text-4xl filter sepia opacity-80">💭</div>
+        <p className="text-xl md:text-2xl text-red-950 font-medium italic mb-4 font-serif">
           "Trắc nghiệm không chỉ là thuộc lòng, mà là vận dụng phép biện chứng để sinh tồn."
         </p>
-        <p className="mt-2 text-slate-400 text-sm">Hãy chọn Dòng Thời Gian Lịch Sử để truy tìm chân lý.</p>
+
+        <div className={`mt-6 p-6 rounded-lg border-l-4 border-red-900 bg-white shadow-md text-left flex flex-col md:flex-row items-center gap-6`}>
+           <div className="text-6xl drop-shadow-md">{data.icon}</div>
+           <div>
+              <h2 className="text-2xl font-black text-red-950 uppercase tracking-wider mb-2 font-serif">{data.title}</h2>
+              <p className="text-lg text-stone-700 font-medium leading-relaxed">{data.desc}</p>
+           </div>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-6 w-full items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
-          
-          {/* Stage 1 */}
-          <button 
-            onClick={() => onStart('stage_1')}
-            className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-900 to-blue-700 hover:from-blue-800 hover:to-blue-600 text-left text-white rounded-2xl shadow-lg transform transition hover:-translate-y-1 active:scale-95 border border-blue-500 group"
-          >
-            <div className="text-4xl group-hover:scale-110 transition-transform bg-white/10 w-16 h-16 flex items-center justify-center rounded-xl">🏛️</div>
-            <div>
-              <div className="font-black text-lg tracking-wide uppercase text-blue-100">Chương 1</div>
-              <div className="text-sm text-blue-200 mt-1 font-medium">Bình Minh Trí Tuệ (Cổ Đại - Trung Cổ)</div>
-            </div>
-          </button>
-
-          {/* Stage 2 */}
-          <button 
-            onClick={() => onStart('stage_2')}
-            className="flex items-center gap-4 p-4 bg-gradient-to-r from-emerald-900 to-emerald-700 hover:from-emerald-800 hover:to-emerald-600 text-left text-white rounded-2xl shadow-lg transform transition hover:-translate-y-1 active:scale-95 border border-emerald-500 group"
-          >
-            <div className="text-4xl group-hover:scale-110 transition-transform bg-white/10 w-16 h-16 flex items-center justify-center rounded-xl">📜</div>
-            <div>
-              <div className="font-black text-lg tracking-wide uppercase text-emerald-100">Chương 2</div>
-              <div className="text-sm text-emerald-200 mt-1 font-medium">Vượt Ngục Siêu Hình (Cận Đại - Cổ Điển)</div>
-            </div>
-          </button>
-
-          {/* Stage 3 */}
-          <button 
-            onClick={() => onStart('stage_3')}
-            className="flex items-center gap-4 p-4 bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-left text-white rounded-2xl shadow-lg transform transition hover:-translate-y-1 active:scale-95 border border-red-500 group md:col-span-1"
-          >
-            <div className="text-4xl group-hover:scale-110 transition-transform bg-white/10 w-16 h-16 flex items-center justify-center rounded-xl">🚩</div>
-            <div>
-              <div className="font-black text-lg tracking-wide uppercase text-red-100">Chương 3</div>
-              <div className="text-sm text-red-200 mt-1 font-medium">Ngọn Lửa Giai Cấp (Mác - Lênin)</div>
-            </div>
-          </button>
-
-          {/* Stage ALL */}
-          <button 
-            onClick={() => onStart('all')}
-            className="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-900 to-yellow-700 hover:from-purple-800 hover:to-yellow-600 text-left text-white rounded-2xl shadow-[0_0_20px_rgba(234,179,8,0.4)] transform transition hover:-translate-y-1 active:scale-95 border border-yellow-500 group md:col-span-1"
-          >
-            <div className="text-4xl group-hover:scale-110 transition-transform bg-white/10 w-16 h-16 flex items-center justify-center rounded-xl">🔥</div>
-            <div>
-              <div className="font-black text-lg tracking-wide uppercase text-yellow-100 animate-pulse">Khảo Thí</div>
-              <div className="text-sm text-yellow-200 mt-1 font-medium">Toàn Tập Lịch Sử Triết Học</div>
-            </div>
-          </button>
-
-        </div>
+      <div className="flex flex-col gap-6 w-full items-center mt-4">
+        
+        <button 
+          onClick={() => onStart(categoryId)}
+          className="group relative inline-flex items-center justify-center px-14 py-6 font-bold text-red-950 transition-all duration-300 bg-amber-400 border border-amber-300 rounded-sm hover:shadow-[0_0_40px_rgba(251,191,36,0.4)] hover:-translate-y-1 overflow-hidden scale-100 hover:scale-105 active:scale-95 text-2xl tracking-widest uppercase font-serif"
+        >
+          <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-[150%] group-hover:h-80 opacity-30"></span>
+          <span className="relative flex items-center gap-3">
+            BẮT ĐẦU TRẮC NGHIỆM
+            <svg className="w-8 h-8 transform group-hover:translate-x-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </span>
+        </button>
 
         <button 
-          onClick={() => navigate('/')}
-          className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors font-medium mt-6 border border-slate-700 hover:border-slate-500 rounded-full px-6 py-2 bg-slate-800/50"
+          onClick={() => navigate('/theory/' + categoryId)}
+          className="group flex items-center gap-2 text-stone-500 hover:text-red-900 transition-colors font-bold mt-6 border-b-2 border-stone-300 hover:border-red-900 pb-1"
         >
           <span className="group-hover:-translate-x-1 transition-transform">←</span>
-          Trở về hành trình lý thuyết
+          Học lại lý thuyết phần này
         </button>
       </div>
     </div>

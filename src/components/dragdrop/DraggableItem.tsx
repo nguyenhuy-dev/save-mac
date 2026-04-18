@@ -20,7 +20,7 @@ export const DraggableItem: React.FC<DraggableItemProps> = ({ item, isPlaced }) 
   };
 
   if (isPlaced) {
-    return null; 
+    return null;
   }
 
   return (
@@ -29,9 +29,8 @@ export const DraggableItem: React.FC<DraggableItemProps> = ({ item, isPlaced }) 
       style={style}
       {...listeners}
       {...attributes}
-      className={`relative z-50 p-4 min-w-[150px] text-center bg-slate-800 text-slate-100 font-bold rounded-lg border-2 border-red-500/50 shadow-lg select-none cursor-grab active:cursor-grabbing hover:bg-slate-700 transition-colors ${
-        isDragging ? 'opacity-50 scale-105 shadow-[0_0_20px_rgba(220,38,38,0.5)]' : 'opacity-100'
-      }`}
+      className={`relative z-50 p-4 min-w-[150px] text-center bg-stone-50 text-red-950 font-bold uppercase tracking-widest text-sm rounded-sm border-2 border-red-900 shadow-sm select-none cursor-grab active:cursor-grabbing hover:bg-white transition-colors font-serif ${isDragging ? 'opacity-50 scale-105 shadow-md border-amber-600' : 'opacity-100'
+        }`}
     >
       {item.content}
     </div>
