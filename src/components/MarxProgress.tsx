@@ -40,7 +40,7 @@ const MarxProgress: React.FC<MarxProgressProps> = ({ currentLevel, totalLevels }
            <img 
               src="/karl_marx.png" 
               alt="Marx Running" 
-              className={`w-12 h-12 object-cover rounded-full border-2 border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.8)] bg-slate-800 ${currentLevel > 0 ? 'animate-bounce' : ''}`}
+              className={`w-12 h-12 min-w-[3rem] min-h-[3rem] aspect-square flex-shrink-0 object-cover rounded-full border-2 border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.8)] bg-slate-800 ${currentLevel > 0 ? 'animate-bounce' : ''}`}
            />
          </div>
       </div>

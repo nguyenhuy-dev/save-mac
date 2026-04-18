@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getQuestionsByCategory, type Question } from '../data/questions';
 import { useAudio } from '../hooks/useAudio';
 import GameIntro from '../components/GameIntro';
@@ -25,7 +25,6 @@ const Game = () => {
 
   const currentQuestion = gameQuestions[currentLevel];
 
-  const [gameMode, setGameMode] = useState<string>('tong-quan');
   const [countdown, setCountdown] = useState<number | null>(null);
 
   // Countdown logic
@@ -74,7 +73,6 @@ const Game = () => {
   const [isWin, setIsWin] = useState(true);
 
   const startGame = useCallback((category: string) => {
-    setGameMode(category);
     setGameQuestions(getQuestionsByCategory(category, TOTAL_LEVELS));
     setGameState('COUNTDOWN');
     setCountdown(3);
@@ -130,12 +128,6 @@ const Game = () => {
     }
   };
 
-  const formatTime = (seconds: number) => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-    return `${min}:${sec.toString().padStart(2, '0')}`;
-  };
-
   const renderContent = () => {
     switch (gameState) {
       case 'START':
@@ -163,7 +155,6 @@ const Game = () => {
           selectedOption={selectedOption}
           feedback={feedback}
           onSelectOption={handleOptionSelect}
-          formatTime={formatTime}
           onNext={handleNextLevel}
         />;
       case 'RESULT':
@@ -171,7 +162,6 @@ const Game = () => {
           score={score}
           wrongCount={wrongCount}
           totalLevels={TOTAL_LEVELS}
-          formatTime={formatTime}
           onRestart={() => setGameState('START')}
           isWin={isWin}
         />;
