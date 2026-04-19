@@ -19,23 +19,23 @@ const Footer: React.FC = () => {
           <ul className="flex flex-col gap-3 text-[14px] leading-relaxed">
             <li className="flex items-start gap-2">
               <span className="text-[#D35400] mt-1">■</span>
-              <span><strong>Nguyễn Quốc Huy:</strong> Core Logic & Quản lý Git</span>
+              <span><strong>Nguyễn Quốc Huy (SE190794):</strong> Core Logic & Quản lý Git</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-[#D35400] mt-1">■</span>
-              <span><strong>Trần Võ Quang Duy:</strong> Lập trình UI/UX</span>
+              <span><strong>Trần Võ Quang Duy (SE182146):</strong> Lập trình UI/UX</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-[#D35400] mt-1">■</span>
-              <span><strong>Phan Trần Hoàng Trân:</strong> Xử lý Dữ liệu - Data</span>
+              <span><strong>Phan Trần Hoàng Trân (SE190932):</strong> Xử lý Dữ liệu - Data</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-[#D35400] mt-1">■</span>
-              <span><strong>Nguyễn Xuân Lộc:</strong> Xây dựng Component</span>
+              <span><strong>Nguyễn Xuân Lộc (SE183782):</strong> Xây dựng Component</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-[#D35400] mt-1">■</span>
-              <span><strong>Lê Hoàng Tuấn:</strong> QA/QC & Deploy</span>
+              <span><strong>Lê Hoàng Tuấn (SE190132):</strong> QA/QC & Deploy</span>
             </li>
           </ul>
         </div>
