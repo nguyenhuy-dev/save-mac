@@ -77,9 +77,9 @@ const Home: React.FC = () => {
         {/* Header / Hero Section (Sitting directly above banner) */}
         <header className="text-center mt-12 md:mt-20 px-6 animate-fade-in-up max-w-5xl mx-auto mb-10">
           <div className="inline-flex items-center justify-center mb-6">
-            <div className="h-[2px] w-12 md:w-16 bg-red-800/60"></div>
-            <span className="mx-4 text-red-900 uppercase tracking-[0.3em] font-bold text-sm md:text-base">Học Viện Lý Luận</span>
-            <div className="h-[2px] w-12 md:w-16 bg-red-800/60"></div>
+            <div className="hidden md:block h-[2px] w-12 bg-red-800/60"></div>
+            <span className="mx-4 text-red-900 uppercase tracking-[0.2em] font-bold text-xs md:text-sm text-center">Học Viện Lý Luận <br className="md:hidden" /> (Phần Chủ Nghĩa Duy Vật Biện Chứng)</span>
+            <div className="hidden md:block h-[2px] w-12 bg-red-800/60"></div>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-red-950 mb-6 leading-snug font-serif uppercase drop-shadow-sm">
             <span className="block mb-2 text-stone-800">Hành Trình Khám Phá</span>
@@ -210,7 +210,7 @@ const Home: React.FC = () => {
                  
                  <div className="text-center px-4 -mt-4 relative z-20">
                     <div className="inline-block bg-[#fdfaf5] border-2 border-[#3E2723] px-6 py-3 shadow-md text-[#3E2723] text-base italic font-bold">
-                      Triết học không chỉ là giải thích thế giới, mà vấn đề là cải tạo thế giới.
+                      "Các nhà triết học đã chỉ giải thích thế giới bằng nhiều cách khác nhau, song vấn đề là cải tạo thế giới." - C. Mác
                     </div>
                  </div>
               </section>

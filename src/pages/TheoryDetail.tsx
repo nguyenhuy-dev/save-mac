@@ -8,7 +8,7 @@ const theoryData: Record<string, any> = {
     color: 'from-red-600 to-rose-900',
     glowColor: 'bg-red-600',
     icon: '🚩',
-    quote: '"Triết học không chỉ là để giải thích thế giới, mà vấn đề là cải tạo thế giới." - Karl Marx',
+    quote: '"Các nhà triết học đã chỉ giải thích thế giới bằng nhiều cách khác nhau, song vấn đề là cải tạo thế giới." - C. Mác',
     image: '/images/5-mac-lenin.jpg',
     videoUrl: 'https://www.youtube.com/embed/KW89urLGxNY', // Thay bằng link video bài giảng của bạn
     sections: [
@@ -37,7 +37,7 @@ const theoryData: Record<string, any> = {
     color: 'from-blue-600 to-indigo-800',
     glowColor: 'bg-blue-600',
     icon: '🔮',
-    quote: '"Vật chất là phạm trù triết học dùng để chỉ thực tại khách quan được đem lại cho con người trong cảm giác..." - V.I. Lênin',
+    quote: '"Vật chất là một phạm trù triết học dùng để chỉ thực tại khách quan được đem lại cho con người trong cảm giác, được cảm giác của chúng ta chép lại, chụp lại, phản ánh, và tồn tại không lệ thuộc vào cảm giác." - V.I. Lênin',
     image: '/images/1-co-dai.jpg',
     videoUrl: 'https://www.youtube.com/embed/nlmtgzotDBc', // Thay bằng link video bài giảng của bạn
     sections: [
@@ -75,7 +75,7 @@ const theoryData: Record<string, any> = {
     color: 'from-emerald-600 to-teal-900',
     glowColor: 'bg-emerald-500',
     icon: '⚖️',
-    quote: '"Tất cả mọi sự vật và hiện tượng đều nằm trong mối liên hệ phổ biến và sự phát triển không ngừng." - Engels',
+    quote: '"Phép biện chứng là môn khoa học về những quy luật phổ biến của sự vận động và sự phát triển của tự nhiên, của xã hội loài người và của tư duy." - Ph. Ăngghen',
     image: '/images/3-phuc-hung.jpg',
     videoUrl: 'https://www.youtube.com/embed/U22P-1gZ5g0', // Thay bằng link video bài giảng của bạn
     sections: [
@@ -105,14 +105,14 @@ const theoryData: Record<string, any> = {
     color: 'from-amber-600 to-yellow-900',
     glowColor: 'bg-amber-500',
     icon: '⚙️',
-    quote: '"Sự chuyển hóa từ số lượng sang chất lượng và ngược lại, là một trong những quy luật phổ quát nhất." - Engels',
+    quote: '"Bất cứ ở trong giới tự nhiên hay trong lịch sử, cho đến nay, mọi sự biến đổi về chất đều là kết quả của sự thay đổi về lượng." - Ph. Ăngghen',
     image: '/images/4-co-dien.jpg',
     videoUrl: 'https://www.youtube.com/embed/I7aj5tjiqA4', // Thay bằng link video bài giảng của bạn
     sections: [
       {
         label: '1. Quy luật Lượng - Chất',
         content: [
-          'Chỉ ra phương thức, cách thức của sự phát triển.',
+          'Chỉ ra CÁCH THỨC của sự vận động và phát triển.',
           'Chất là tính quy định khách quan vốn có; Lượng là quy mô, trình độ, nhịp điệu phát triển.',
           'Sự tích lũy dần về lượng vượt qua "Độ" sẽ dẫn đến bước "Nhảy", tạo ra chất mới thay thế chất cũ.'
         ],
@@ -121,7 +121,7 @@ const theoryData: Record<string, any> = {
       {
         label: '2. Quy luật Mâu thuẫn',
         content: [
-          'Chỉ ra nguồn gốc, động lực bên trong của sự phát triển (Thống nhất & Đấu tranh giữa các mặt đối lập).',
+          'Chỉ ra NGUỒN GỐC và ĐỘNG LỰC của sự vận động, phát triển.',
           'Sự vật luôn chứa mặt đối lập, chúng vừa thống nhất vừa đấu tranh với nhau.',
           'Sự đấu tranh để giải quyết mâu thuẫn làm sự vật cũ mất đi, sự vật mới ra đời.'
         ],
@@ -130,7 +130,7 @@ const theoryData: Record<string, any> = {
       {
         label: '3. Phủ định của Phủ định',
         content: [
-          'Chỉ ra khuynh hướng của sự phát triển (hình xoáy trôn ốc).',
+          'Chỉ ra KHUYNH HƯỚNG của sự phát triển (theo hình xoáy ốc).',
           'Sự ra đời của cái mới bao giờ cũng đi kèm sự kế thừa những yếu tố tích cực của cái cũ.',
           'Quy luật này phản ánh tính chất chu kỳ của sự vận động, tiến lên không ngừng.'
         ],
